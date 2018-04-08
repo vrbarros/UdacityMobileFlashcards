@@ -1,14 +1,27 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { decks } from './ducks';
+
+import TopBar from './components/TopBar';
+import Navigator from './components/Navigator';
+
+import { orange, white } from './utils/colors';
+import getDecks from './utils/decks';
+
+let store = createStore(decks);
+
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      <Provider store={store}>
+        <View style={{ flex: 1 }}>
+          <TopBar barStyle="light-content" />
+          <Navigator />
+        </View>
+      </Provider>
     );
   }
 }
@@ -16,7 +29,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: white,
     alignItems: 'center',
     justifyContent: 'center',
   },
