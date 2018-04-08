@@ -32,7 +32,7 @@ class NewCard extends Component {
     }));
   };
 
-  handleQuestionOnChange = input => {
+  handleAnswerOnChange = input => {
     this.setState(state => ({
       ...state,
       answer: input,
@@ -78,7 +78,7 @@ class NewCard extends Component {
           autoFocus
           value={answer}
           style={styles.input}
-          onChange={event => this.handleQuestionOnChange(event.nativeEvent.text)}
+          onChange={event => this.handleAnswerOnChange(event.nativeEvent.text)}
         />
         <Button style={{ marginBottom: 20 }} onPress={() => this.submit()}>
           Salvar
