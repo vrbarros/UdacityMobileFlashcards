@@ -10,7 +10,7 @@ import { newDeck } from '../ducks';
 
 import { submitDeck } from '../utils/api';
 
-import { white, gray } from '../utils/colors'
+import { white, gray, red } from '../utils/colors'
 
 class New extends Component {
   state = {
@@ -25,28 +25,35 @@ class New extends Component {
 
   submit = () => {
     const title = this.state.input;
-    const key = title;
 
-    const deck = {
-      title: this.state.input,
-      questions: [],
-    };
+    if ( title !== '') {
+      const key = title;
 
-    this.props.dispatch(
-      newDeck({
-        [key]: deck,
-      }),
-    );
-
-    this.setState(() => ({ input: '' }));
-
-    this.props.navigation.navigate('DeckList');
-
-    submitDeck({ deck, key });
+      const deck = {
+        title: this.state.input,
+        questions: [],
+      };
+  
+      this.props.dispatch(
+        newDeck({
+          [key]: deck,
+        }),
+      );
+  
+      this.setState(() => ({ input: '', alert: false }));
+  
+      this.props.navigation.navigate('DeckList');
+  
+      submitDeck({ deck, key });
+    } else {
+      this.setState(() => ({
+        alert: true
+      }));
+    }
   };
 
   render() {
-    let { input } = this.state;
+    let { input, alert } = this.state;
 
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -56,7 +63,7 @@ class New extends Component {
           </Text>
           <TextInput
             value={input}
-            style={styles.input}
+            style={!alert ? styles.input : styles.highlight}
             onChange={event => this.handleTextChange(event.nativeEvent.text)}
           />
           <Button onPress={() => this.submit()}>Salvar</Button>
@@ -81,6 +88,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginBottom: 25,
   },
+  highlight: {
+    padding: 15,
+    borderWidth: 1,
+    borderColor: red,
+    fontSize: 24,
+    marginBottom: 25,
+  }
 });
 
 export default connect()(New);
