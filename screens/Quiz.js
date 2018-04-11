@@ -7,6 +7,7 @@ import Button from '../components/Button';
 import TextButton from '../components/TextButton';
 
 import { orange, white, red, green } from '../utils/colors';
+import { clearAppNotification, setAppNotification }  from '../utils/notifications'
 
 class QuizView extends Component {
   static navigationOptions = () => {
@@ -93,6 +94,9 @@ class QuizView extends Component {
     let percentage = questionsCorrect / questionsCounter * 100;
     percentage = percentage.toString();
     if (percentage.length > 3) percentage = percentage.substring(0, 4);
+
+    clearAppNotification()
+    .then(setAppNotification())
 
     return (
       <View style={styles.questionAnswerContainer}>

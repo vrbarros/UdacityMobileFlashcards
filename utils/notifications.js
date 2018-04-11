@@ -3,6 +3,12 @@ import { Notifications, Permissions } from 'expo';
 
 import { NOTIFICATION_KEY } from './constants';
 
+export function clearAppNotification() {
+  return AsyncStorage.removeItem(NOTIFICATION_KEY).then(
+    Notifications.cancelAllScheduledNotificationsAsync,
+  );
+}
+
 export function setAppNotification() {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
@@ -28,7 +34,7 @@ export function setAppNotification() {
                   sound: true,
                   sticky: false,
                   vibrate: true,
-                  priority: 'high',                  
+                  priority: 'high',
                 },
               },
               {
