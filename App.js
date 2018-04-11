@@ -10,10 +10,14 @@ import Navigator from './components/Navigator';
 
 import { orange, white } from './utils/colors';
 import getDecks from './utils/decks';
+import { setAppNotification } from './utils/notifications';
 
 let store = createStore(decks);
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setAppNotification();
+  }
   render() {
     return (
       <Provider store={store}>
