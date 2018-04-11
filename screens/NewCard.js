@@ -11,7 +11,7 @@ import { newDeck, newCard } from '../ducks';
 
 import { submitDeck } from '../utils/api';
 
-import { white, gray } from '../utils/colors'
+import { white, gray, red } from '../utils/colors'
 
 class NewCard extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -44,21 +44,25 @@ class NewCard extends Component {
     const { question, answer } = this.state;
     let { decks } = this.props;
 
-    let deck = { ...decks[deckId] };
-    const key = deckId;
-    deck.questions.push({ question, answer });
-
-    this.props.dispatch(
-      newCard({
-        [key]: deck,
-      }),
-    );
-
-    this.setState(() => ({ question: '', answer: '' }));
-
-    this.props.navigation.goBack();
-
-    submitDeck({ deck, key });
+    if (question !== '') {
+      if (answer !== '') {
+        let deck = { ...decks[deckId] };
+        const key = deckId;
+        deck.questions.push({ question, answer });
+    
+        this.props.dispatch(
+          newCard({
+            [key]: deck,
+          }),
+        );
+    
+        this.setState(() => ({ question: '', answer: '' }));
+    
+        this.props.navigation.goBack();
+    
+        submitDeck({ deck, key });
+      }
+    }
   };
 
   render() {
@@ -101,7 +105,7 @@ const styles = StyleSheet.create({
     borderColor: gray,
     fontSize: 20,
     marginBottom: 18,
-  },
+  }
 });
 
 function mapStateToProps(decks) {

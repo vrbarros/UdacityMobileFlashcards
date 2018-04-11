@@ -69,6 +69,7 @@ class QuizView extends Component {
         : {
             ...state,
             actualCard: actualCard + 1,
+            displayQuestion: true,
             questionsCorrect: sumCorrect,
           };
     });
@@ -80,6 +81,7 @@ class QuizView extends Component {
         ...state,
         actualCard: 0,
         questionsCorrect: 0,
+        displayQuestion: true,
         displayScore: false,
       };
     });
