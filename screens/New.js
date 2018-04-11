@@ -41,10 +41,10 @@ class New extends Component {
       );
   
       this.setState(() => ({ input: '', alert: false }));
-  
-      this.props.navigation.navigate('DeckList');
-  
+    
       submitDeck({ deck, key });
+
+      this.props.navigation.navigate('Deck', { deckId: title });
     } else {
       this.setState(() => ({
         alert: true
